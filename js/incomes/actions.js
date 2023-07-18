@@ -6,7 +6,17 @@ export let incomes = [];
 
 export const addIncome = (e) => {
   e.preventDefault();
+  const nameValue = incomeName.value.trim();
+  const valueValue = incomeValue.value.trim();
 
+  if (
+    !nameValue ||
+    valueValue === "" ||
+    isNaN(valueValue) ||
+    Number(valueValue) <= 0
+  ) {
+    return;
+  }
   const _income = {
     name: incomeName.value,
     value: Number(incomeValue.value),
@@ -37,7 +47,15 @@ export const editIncomesList = (e) => {
     `update-income-${idToEdit}`
   ).value;
 
-  if (nameValue && incomeValue) {
+  if (
+    !nameValue ||
+    incomeValue === "" ||
+    isNaN(incomeValue) ||
+    Number(incomeValue) <= 0
+  ) {
+    return;
+  }
+  {
     incomes = incomes.map((income) => {
       if (income.id === idToEdit) {
         return { ...income, name: nameValue, value: Number(incomeValue) };
@@ -47,5 +65,4 @@ export const editIncomesList = (e) => {
 
     renderIncomesList();
   }
-  console.log(idToEdit, nameValue, incomeValue);
 };

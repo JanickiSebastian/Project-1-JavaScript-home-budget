@@ -7,6 +7,17 @@ export let outcomes = [];
 export const addOutcome = (e) => {
   e.preventDefault();
 
+  const nameValue = outcomeName.value.trim();
+  const valueValue = outcomeValue.value.trim();
+
+  if (
+    !nameValue ||
+    valueValue === "" ||
+    isNaN(valueValue) ||
+    Number(valueValue) <= 0
+  ) {
+    return;
+  }
   const _outcome = {
     name: outcomeName.value,
     value: Number(outcomeValue.value),
@@ -37,7 +48,15 @@ export const editOutcomesList = (e) => {
     `update-outcome-${idToEdit}`
   ).value;
 
-  if (nameValue && outcomeValue) {
+  if (
+    !nameValue ||
+    outcomeValue === "" ||
+    isNaN(outcomeValue) ||
+    Number(outcomeValue) <= 0
+  ) {
+    return;
+  }
+  {
     outcomes = outcomes.map((outcome) => {
       if (outcome.id === idToEdit) {
         return { ...outcome, name: nameValue, value: Number(outcomeValue) };
