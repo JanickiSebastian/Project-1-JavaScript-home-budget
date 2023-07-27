@@ -1,6 +1,6 @@
 "use strict";
 import { displayCurrentBalance, outcomesList, outcomesSum } from "../main.js";
-import { outcomes, deleteOutcome, editOutcomesList } from "./actions.js";
+import { outcomes, deleteOutcome, editOutcomesList,editFlags } from "./actions.js";
 
 export const renderOutcomesList = () => {
   outcomesList.innerHTML = "";
@@ -53,7 +53,8 @@ const calculateOutcomesSum = () => {
   outcomesSum.innerText = _outcomesSum.toFixed(2);
   displayCurrentBalance();
 };
-let editFlags = {};
+
+
 const renderUpdateInputs = (e) => {
   const id = e.target.id;
   if (editFlags[id]) {
@@ -63,19 +64,24 @@ const renderUpdateInputs = (e) => {
   const updateInputsWrapper = document.createElement("div");
   updateInputsWrapper.id = `update-${id}`;
 
+  const outcomeToEdit = outcomes.find(outcome => outcome.id === id);
+
+
   const nameInput = document.createElement("input");
   nameInput.id = `update-name-${id}`;
+  nameInput.value = outcomeToEdit.name;
 
   const outcomeInput = document.createElement("input");
   outcomeInput.type = "number";
   outcomeInput.id = `update-outcome-${id}`;
+  outcomeInput.value = outcomeToEdit.value;
 
   const saveButton = document.createElement("button");
-  saveButton.innerHTML = "SAVE";
+  saveButton.innerHTML = "Zapisz";
   saveButton.id = `update-save-${id}`;
 
   const cancelButton = document.createElement("button");
-  cancelButton.innerHTML = "CANCEL";
+  cancelButton.innerHTML = "Anuluj";
   cancelButton.id = `update-cancel-${id}`;
 
   updateInputsWrapper.appendChild(nameInput);
@@ -96,4 +102,5 @@ const cancelEditInputs = (e) => {
   const listElement = document.getElementById(id);
   const updateElement = document.getElementById(`update-${id}`);
   listElement.removeChild(updateElement);
+  editFlags[id] = false;
 };

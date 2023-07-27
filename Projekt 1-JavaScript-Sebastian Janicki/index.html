@@ -16,26 +16,34 @@
       <main class="app-main">
         <div class="wrapper">
           <h3 class="heading">PRZYCHODY:</h3>
-          <div class="incomes-outcomes-inputs">
-            <input id="income-name" type="text" />
-            <input id="income-value" type="number" />
-            <button id="add-income-button">DODAJ</button>
-          </div>
 
-          <ul  id="incomes-list"></ul>
+          <form id="add-income-form">
+            <div class="incomes-outcomes-inputs">
+              <label class="text-income" for="income-name">Nazwa przychodu:</label>
+              <input id="income-name" type="text" required />
+              <label class="text-income" for="income-value">Wartość przychodu:</label>
+              <input id="income-value" type="number" step="0.01" required />
+              <button class='click'type="submit">DODAJ</button>
+            </div>
+          </form>
+          <ul id="incomes-list"></ul>
           <p class="sum-incomes-outcomes-style">
             Suma przychdów:<span id="incomes-sum">0</span>zł
           </p>
         </div>
         <div class="wrapper">
           <h3 class="heading">WYDATKI:</h3>
-          <div class="incomes-outcomes-inputs">
-            <input id="outcome-name" type="text" />
-            <input id="outcome-value" type="number" />
-            <button id="add-outcome-button">DODAJ</button>
-          </div>
+          <form id="add-outcome-form">
+            <div class="incomes-outcomes-inputs">
+              <label class="text-income" for="outcome-name">Nazwa wydatku:</label>
+              <input id="outcome-name" type="text" required />
+              <label class="text-income" for="outcome-value">Wartość wydatku:</label>
+              <input id="outcome-value" type="number" step="0.01" required />
+              <button  class='click'type="submit">DODAJ</button>
+            </div>
+          </form>
 
-          <ul  id="outcomes-list"></ul>
+          <ul id="outcomes-list"></ul>
 
           <p class="sum-incomes-outcomes-style">
             Suma wydatków:<span id="outcomes-sum">0</span>zł

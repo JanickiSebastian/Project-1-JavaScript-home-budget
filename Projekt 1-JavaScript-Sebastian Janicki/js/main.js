@@ -12,23 +12,24 @@ export const outcomesSum = document.getElementById("outcomes-sum");
 export const outcomeName = document.getElementById("outcome-name");
 export const outcomeValue = document.getElementById("outcome-value");
 const balanceInfoText = document.getElementById("info-text");
-const addIncomeButton = document.getElementById("add-income-button");
-const addOutcomeButton = document.getElementById("add-outcome-button");
+const addIncomeForm = document.getElementById("add-income-form");
+const addOutcomeForm = document.getElementById("add-outcome-form");
 
-addIncomeButton.addEventListener("click", addIncome);
-addOutcomeButton.addEventListener("click", addOutcome);
+addIncomeForm.addEventListener("submit", addIncome);
+addOutcomeForm.addEventListener("submit", addOutcome);
 
 export const displayCurrentBalance = () => {
   const outcome = Number(outcomesSum.innerText);
   const income = Number(incomesSum.innerText);
-  if (outcome > income) {
-    balanceInfoText.innerText = `Wydałeś za dużo, jesteś na minusie ${
-      outcome - income.toLocaleString()
-    } zł.`;
-  } else if (income > outcome) {
-    balanceInfoText.innerText = `Jesteś na plusie możesz jeszcze wydać ${
-      income - outcome.toLocaleString()
-    } zł.`;
+  const balance = income - outcome;
+  if (balance > 0) {
+    balanceInfoText.innerText = `Jesteś na plusie możesz jeszcze wydać ${balance.toFixed(
+      2
+    )} zł.`;
+  } else if (balance < 0) {
+    balanceInfoText.innerText = `Wydałeś za dużo, jesteś na minusie ${Math.abs(
+      balance
+    ).toFixed(2)} zł.`;
   } else {
     balanceInfoText.innerText = "Jesteś na zerze";
   }

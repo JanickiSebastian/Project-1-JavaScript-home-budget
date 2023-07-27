@@ -1,6 +1,11 @@
 "use strict";
 import { displayCurrentBalance, incomesList, incomesSum } from "../main.js";
-import { incomes, deleteIncome, editIncomesList } from "./actions.js";
+import {
+  incomes,
+  deleteIncome,
+  editIncomesList,
+  editFlags,
+} from "./actions.js";
 
 export const renderIncomesList = () => {
   incomesList.innerHTML = "";
@@ -44,7 +49,6 @@ export const renderIncomesList = () => {
     editButton.addEventListener("click", renderUpdateInputs);
   }
   calculateIncomesSum();
-  
 };
 const calculateIncomesSum = () => {
   const _incomesSum = incomes.reduce((acc, income) => {
@@ -54,8 +58,6 @@ const calculateIncomesSum = () => {
   incomesSum.innerText = _incomesSum.toFixed(2);
   displayCurrentBalance();
 };
-
-let editFlags = {};
 
 const renderUpdateInputs = (e) => {
   const id = e.target.id;
@@ -67,19 +69,23 @@ const renderUpdateInputs = (e) => {
   const updateInputsWrapper = document.createElement("div");
   updateInputsWrapper.id = `update-${id}`;
 
+  const incomeToEdit = incomes.find((income) => income.id === id);
+
   const nameInput = document.createElement("input");
   nameInput.id = `update-name-${id}`;
+  nameInput.value = incomeToEdit.name;
 
   const incomeInput = document.createElement("input");
   incomeInput.type = "number";
   incomeInput.id = `update-income-${id}`;
+  incomeInput.value = incomeToEdit.value;
 
   const saveButton = document.createElement("button");
-  saveButton.innerHTML = "SAVE";
+  saveButton.innerHTML = "Zapisz";
   saveButton.id = `update-save-${id}`;
 
   const cancelButton = document.createElement("button");
-  cancelButton.innerHTML = "CANCEL";
+  cancelButton.innerHTML = "Anuluj";
   cancelButton.id = `update-cancel-${id}`;
 
   updateInputsWrapper.appendChild(nameInput);
@@ -100,4 +106,5 @@ const cancelEditInputs = (e) => {
   const listElement = document.getElementById(id);
   const updateElement = document.getElementById(`update-${id}`);
   listElement.removeChild(updateElement);
+  editFlags[id] = false;
 };
