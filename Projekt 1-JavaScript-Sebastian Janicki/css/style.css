@@ -33,7 +33,11 @@
   display: flex;
   justify-content: center;
 }
-
+.list-incomes-outcomes-style {
+  color: white;
+  font-weight: 400;
+  font-size: 25px;
+}
 .sum-incomes-outcomes-style {
   color: white;
   font-weight: 600;
